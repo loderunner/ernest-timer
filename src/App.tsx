@@ -1,7 +1,14 @@
+import { useTasks } from './tasks';
+
 import './index.css';
 
 function App() {
-  return <div className="font-bold">Hello World!</div>;
+  const { tasks, addTask, deleteTask } = useTasks();
+  return (
+    <>
+      <div className="text-xl font-bold">TaskTimer ⏰</div>
+    </>
+  );
 }
 
 export default App;
