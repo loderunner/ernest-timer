@@ -1,3 +1,4 @@
+import { PlayIcon, TrashIcon } from '@heroicons/react/24/solid';
 import {
   FocusEvent,
   KeyboardEvent,
@@ -12,9 +13,10 @@ import { useTask } from './tasks';
 interface Props {
   taskId: number;
   selected?: boolean;
+  onDelete?: () => void;
 }
 
-export function TaskItem({ taskId: id }: Props) {
+export function TaskItem({ taskId: id, onDelete }: Props) {
   const { task, setTaskLabel } = useTask(id);
 
   const [editing, setEditing] = useState(false);
@@ -68,6 +70,15 @@ export function TaskItem({ taskId: id }: Props) {
         ></input>
         <span>{task.label}</span>
       </div>
+      <button className="text-slate-700 hover:text-slate-950 active:text-slate-700">
+        <PlayIcon className="h-6 w-6" />
+      </button>
+      <button
+        className="text-slate-700 hover:text-slate-950 active:text-slate-700"
+        onClick={onDelete}
+      >
+        <TrashIcon className="h-6 w-6" />
+      </button>
     </div>
   ) : (
     <></>

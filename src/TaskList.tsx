@@ -4,17 +4,20 @@ import { TaskItem } from './TaskItem';
 import { useTasks } from './tasks';
 
 export function TaskList() {
-  const { tasks, addTask } = useTasks();
+  const { tasks, addTask, deleteTask } = useTasks();
 
   const taskItems = useMemo(() => {
     const items: JSX.Element[] = [];
     for (const t of tasks) {
       if (t.id) {
-        items.push(<TaskItem key={t.id} taskId={t.id} />);
+        const id = t.id;
+        items.push(
+          <TaskItem key={id} taskId={id} onDelete={() => deleteTask(id)} />
+        );
       }
     }
     return items;
-  }, [tasks]);
+  }, [deleteTask, tasks]);
 
   const onClick = useCallback(() => addTask('New task'), [addTask]);
 
