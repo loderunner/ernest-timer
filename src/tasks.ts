@@ -32,14 +32,13 @@ const db = new Database();
 
 export function useTasks() {
   return {
-    tasks: useLiveQuery(() => db.tasks.toArray()),
+    tasks: useLiveQuery(() => db.tasks.toArray()) ?? [],
     addTask: (label: string) => db.tasks.add({ label, runs: [] }),
-    deleteTask: (id: number) => {
-      return Promise.allSettled([
+    deleteTask: (id: number) =>
+      Promise.allSettled([
         db.tasks.delete(id),
         db.runs.where({ taskId: id }).delete(),
-      ]);
-    },
+      ]),
   };
 }
 
